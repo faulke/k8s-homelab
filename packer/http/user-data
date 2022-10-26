@@ -1,0 +1,37 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: us
+  ssh:
+    install-server: true
+    allow-pw: true
+  storage:
+    layout:
+      name: direct
+    swap:
+      size: 0
+  packages:
+    - qemu-guest-agent
+  early-commands:
+    - systemctl stop ssh
+  late-commands:
+    - |
+      rm /target/etc/netplan/00-installer-config.yaml
+      cat <<EOF > /target/etc/netplan/80-my.yaml
+      network:
+        ethernets:
+          ens4:
+            dhcp4: true
+            dhcp-identifier: mac
+        version: 2
+  user-data:
+    disable-root: false
+    users:
+      - name: ubuntu
+        passwd: $6$xyz$lrzkz89JCrvzOPr56aXfFFqGZpBReOx5ndDu9m5CwVFWjZsEIhvVm.I5B4zMxJdcdTyAvncwjKT.dWcD/ZHIo.
+        groups: [adm, sudo]
+        lock-passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
