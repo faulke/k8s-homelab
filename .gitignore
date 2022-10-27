@@ -3,3 +3,5 @@ output
 terraform.tfstate*
 tf-packer*
 packer/build
+notes.md
+*.auto.tfvars
