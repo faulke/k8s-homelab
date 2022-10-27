@@ -32,5 +32,6 @@ variable vms {
     private_key  = string
     volumes      = list(any)
     k8s_master   = optional(bool, false)
+    gitlab_agent = optional(string, "")
   }))
 }

@@ -59,6 +59,11 @@ variable pool {
   }
 }
 
+variable homelab_gitlab_agent {
+  type        = string
+  description = "gitlab agent token for homelab cluster"
+}
+
 locals {
   k8s_network_name = "k8s-net-${var.env_name}"
 }
@@ -110,6 +115,7 @@ module "homelab_libvirt" {
       internal_ip  = var.master_internal_ip
       private_key  = file("${path.module}/tf-packer")
       k8s_master   = true
+      gitlab_agent = var.homelab_gitlab_agent
 
       volumes  = [] # additional volumes
     },
@@ -140,5 +146,4 @@ module "homelab_cluster" {
   services_cidr  = var.services_cidr
   master_nodes   = module.homelab_libvirt.k8s_master_nodes
   agent_nodes    = module.homelab_libvirt.k8s_agent_nodes
-  config_file    = "homelab.yaml"
 }
