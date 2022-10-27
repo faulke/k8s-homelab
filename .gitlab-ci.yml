@@ -4,5 +4,5 @@ deploy:
     entrypoint: ['']
   script:
     - kubectl config get-contexts
-    - kubectl config use-context homelab:homelab-cluster-dev
+    - kubectl config use-context faulke/homelab:homelab-cluster-dev
     - kubectl get pods
