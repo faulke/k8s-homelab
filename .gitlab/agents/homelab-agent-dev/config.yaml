@@ -1,6 +1,6 @@
 gitops:
   charts:
-  - release_name: another-release
+  - release_name: release-1
     source:
       project:
         id: faulke/homelab
