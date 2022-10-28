@@ -4,6 +4,6 @@ gitops:
     source:
       project:
         id: faulke/homelab
-        path: helm
+        path: helm/test
     namespace: default
     max_history: 1
