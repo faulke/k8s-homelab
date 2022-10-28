@@ -5,4 +5,4 @@ deploy:
   script:
     - kubectl config get-contexts
     - kubectl config use-context faulke/homelab:homelab-agent-dev
-    - kubectl get pods --all-namespacess
+    - kubectl get pods --all-namespaces
