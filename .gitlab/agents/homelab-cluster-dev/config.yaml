@@ -1,3 +1,9 @@
-ci_access:
-  projects:
-    - id: homelab
+gitops:
+  charts:
+  - release_name: my-application-release
+    source:
+      project:
+        id: faulke/homelab
+        path: helm/apps
+    namespace: default
+    max_history: 1

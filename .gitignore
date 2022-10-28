@@ -5,3 +5,4 @@ tf-packer*
 packer/build
 notes.md
 *.auto.tfvars
+helm/library
