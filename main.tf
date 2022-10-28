@@ -4,6 +4,10 @@ terraform {
       source  = "dmacvicar/libvirt"
       version = "~> 0.6.14"
     }
+    gitlab = {
+      source  = "gitlabhq/gitlab"
+      version = "~> 3.18.0"
+    }
   }
 }
 
@@ -59,13 +63,33 @@ variable pool {
   }
 }
 
-variable homelab_gitlab_agent {
+variable gitlab_access_token {
   type        = string
-  description = "gitlab agent token for homelab cluster"
+  description = "gitlab token for access to homelab repo"
+  sensitive   = true
+}
+
+variable gitlab_repo_path {
+  type        = string
+  description = "gitlab repo path with agent"
+  default     = "faulke/homelab"
 }
 
 locals {
   k8s_network_name = "k8s-net-${var.env_name}"
+}
+
+### GITLAB AGENT RESOURCES - MUST APPLY FIRST
+provider "gitlab" {
+  token = var.gitlab_access_token
+}
+
+module "gitlab" {
+  source = "./gitlab"
+
+  access_token = var.gitlab_access_token
+  repo_path    = var.gitlab_repo_path
+  env_name     = var.env_name
 }
 
 ### BASE LIBVIRT RESOURCES
@@ -115,7 +139,7 @@ module "homelab_libvirt" {
       internal_ip  = var.master_internal_ip
       private_key  = file("${path.module}/tf-packer")
       k8s_master   = true
-      gitlab_agent = var.homelab_gitlab_agent
+      gitlab_agent = module.gitlab.agent_token
 
       volumes  = [] # additional volumes
     },

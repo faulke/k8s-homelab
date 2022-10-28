@@ -90,27 +90,30 @@ resource "null_resource" "nginx_ingress" {
 }
 
 data "template_file" "gitlab_agent" {
-  for_each = { for k in local.vms_map : k.gitlab_agent => k if k.gitlab_agent != "" }
+  depends_on = [libvirt_domain.this]
+
+  count = length(local.gitlab_agents)
+
   template = file("${path.module}/gitlab-agent.tpl")
   vars = {
-    agent_token = each.key
+    agent_token = local.gitlab_agents[count.index].gitlab_agent
   }
 }
 
 resource "null_resource" "gitlab_agent" {
   depends_on = [libvirt_domain.this]
 
-  for_each   = { for k in local.vms_map : k.gitlab_agent => k if k.gitlab_agent != "" }
+  count   = length(local.gitlab_agents)
 
   connection {
-    host        = each.value.internal_ip
+    host        = local.gitlab_agents[count.index].internal_ip
     user        = "ubuntu"
-    private_key = each.value.private_key
+    private_key = local.gitlab_agents[count.index].private_key
     timeout     = "60s"
   }
 
   provisioner "file" {
-    content     = data.template_file.gitlab_agent[each.key].rendered
+    content     = data.template_file.gitlab_agent[count.index].rendered
     destination = "/tmp/gitlab-agent.yaml"
   }
 
