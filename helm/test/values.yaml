@@ -46,7 +46,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
   hosts:
-    - host: ""
+    - host: "service1.k8s.dev"
       paths:
         - path: /
           pathType: Prefix
