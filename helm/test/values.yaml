@@ -43,11 +43,12 @@ service:
 ingress:
   enabled: true
   className: "nginx"
-  annotations: {}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
   hosts:
     - host: "service1.k8s.dev"
       paths:
-        - path: /
+        - path: /test(/|$)(.*)
           pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
