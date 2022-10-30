@@ -45,7 +45,7 @@ ingress:
   className: "nginx"
   annotations: {}
   hosts:
-    - host: "service1.k8s.dev"
+    - host: "*"
       paths:
         - path: /
           pathType: Prefix
