@@ -1,4 +1,4 @@
-{{- define: "library.deployment" -}}
+{{- define: "library.service" -}}
 apiVersion: v1
 kind: Service
 metadata:
