@@ -83,6 +83,7 @@ affinity: {}
 
 volumes:
   - name: plex-media
+    mountPath: /media
     nfs:
       server: 192.168.40.142
       path: /mnt/sp1

@@ -51,7 +51,7 @@ spec:
           volumeMounts:
             {{- range .Values.volumes }}
               - name: {{ .name }}
-                mountPath: {{ .path }}
+                mountPath: {{ .mountPath }}
             {{- end}}
       {{- with .Values.volumes }}
       volumes:
