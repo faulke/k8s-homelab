@@ -1,4 +1,4 @@
-# Default values for test.
+# Default values for plex.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -16,7 +16,7 @@ fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false
+  create: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -41,14 +41,16 @@ service:
   port: 80
 
 ingress:
-  enabled: true
-  className: "nginx"
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
   hosts:
-    - paths:
-        - path: /nginx
-          pathType: Prefix
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -78,3 +80,10 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+volumes:
+  - name: plex-media
+    nfs:
+      server: 192.168.40.142
+      path: /mnt/sp1
+      readOnly: false
