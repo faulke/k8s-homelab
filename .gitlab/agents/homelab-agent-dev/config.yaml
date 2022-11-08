@@ -1,8 +1,8 @@
 gitops:
   charts:
-  - release_name: release-2
+  - release_name: plex-server
     source:
       project:
         id: faulke/homelab
-        path: helm/test
+        path: helm/plex
     namespace: default
