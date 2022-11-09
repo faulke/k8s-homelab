@@ -74,16 +74,15 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
+nodeSelector:
+  dedicated: plex
 
-tolerations: []
+tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "plex"
+    effect: "NoSchedule"
 
 affinity: {}
 
-volumes:
-  - name: plex-media
-    mountPath: /media
-    nfs:
-      server: 192.168.40.142
-      path: /mnt/sp1
-      readOnly: false
+volumes: []

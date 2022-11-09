@@ -55,7 +55,7 @@ resource "libvirt_domain" "this" {
   # bridge
   network_interface {
     hostname       = each.value.hostname
-    bridge         = var.bridge_network_name
+    bridge         = each.value.bridge
     wait_for_lease = true
   }
 }

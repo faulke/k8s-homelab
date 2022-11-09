@@ -30,8 +30,11 @@ variable vms {
     hostname     = string
     internal_ip  = string
     private_key  = string
-    volumes      = list(any)
+    volumes      = optional(list(any), [])
     k8s_master   = optional(bool, false)
     gitlab_agent = optional(string, "")
+    taints       = optional(map(any), {})
+    labels       = optional(map(any), {})
+    bridge       = optional(string, "br0")
   }))
 }

@@ -3,6 +3,7 @@ module "k3s" {
   use_sudo       = true
   k3s_version    = "v1.25.3+k3s1"
   cluster_domain = var.cluster_domain
+  managed_fields = ["label", "taint"]
 
   cidr = {
     pods     = var.pods_cidr
@@ -25,7 +26,12 @@ module "k3s" {
 
         labels = {
           "node.kubernetes.io/type" = "master"
+          "svccontroller.k3s.cattle.io/enablelb" = "true" # lb only on master for now
         }
+
+        # taints = {
+        #   "node.k3s.io/type" = "server:NoSchedule"
+        # }
 
         flags = [
           "--disable traefik"
@@ -45,7 +51,8 @@ module "k3s" {
         timeout     = "10s"
       }
 
-      labels = {"node.kubernetes.io/pool" = "service-pool"}
+      labels = node.labels
+      taints = node.taints
     }
   }
 }

@@ -38,6 +38,11 @@ variable worker_internal_ip {
   default = "10.0.0.10"
 }
 
+variable plex_internal_ip {
+  type    = string
+  default = "10.0.0.11"
+}
+
 variable pods_cidr {
   default = "10.42.0.0/16"
 }
@@ -140,8 +145,6 @@ module "homelab_libvirt" {
       private_key  = file("${path.module}/tf-packer")
       k8s_master   = true
       gitlab_agent = module.gitlab.agent_token
-
-      volumes  = [] # additional volumes
     },
     {
       name         = "homelab-worker-${var.env_name}"
@@ -152,8 +155,23 @@ module "homelab_libvirt" {
       hostname     = "homelab-worker-${var.env_name}"
       internal_ip  = var.worker_internal_ip
       private_key  = file("${path.module}/tf-packer")
-
-      volumes  = [] # additional volumes
+    },
+    {
+      name         = "homelab-worker-plex-${var.env_name}"
+      os_volume_id = libvirt_volume.ubuntu.id
+      disk_size    = 15032385536 # 14G in bytes
+      vcpu         = 2
+      memory       = 2048
+      hostname     = "homelab-worker-plex-${var.env_name}"
+      internal_ip  = var.plex_internal_ip
+      private_key  = file("${path.module}/tf-packer")
+      bridge       = "br1" # dedicated nic on host
+      taints       = {
+        "dedicated" = "plex:NoSchedule"
+      }
+      labels       = {
+        "dedicated" = "plex"
+      }
     }
   ]
 }
