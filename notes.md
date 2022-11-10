@@ -4,6 +4,6 @@
 
 # Dedicated NIC for plex
 1. Create a new worker node dedicated for Plex
-2. Use taints and tolerations to make sure plex is deployed to this node:
+2. Use taints and tolerations/nodeSelector to make sure plex is deployed to this node:
 https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
 3. Only if necessary... might not need dedicated NIC
