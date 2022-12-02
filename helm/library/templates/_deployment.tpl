@@ -35,9 +35,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+            {{- toYaml .Values.ports | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /
@@ -49,10 +47,12 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            {{- range .Values.volumes }}
+            {{- toYaml .Values.volumes | nindent 12 }}
               - name: {{ .name }}
                 mountPath: {{ .mountPath }}
             {{- end}}
+          env:
+            {{- toYaml .Values.env | nindent 12 }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

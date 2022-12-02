@@ -5,10 +5,14 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: lscr.io/linuxserver/plex
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
+
+ports:
+  - name: ui
+    containerPort: 32400
 
 imagePullSecrets: []
 nameOverride: ""
@@ -26,19 +30,13 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext: {}
-  # fsGroup: 2000
 
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
 
 service:
   type: ClusterIP
   port: 80
+  targetPort: ui
 
 ingress:
   enabled: true
@@ -86,3 +84,7 @@ tolerations:
 affinity: {}
 
 volumes: []
+
+env:
+  - name: VERSION
+    value: docker
