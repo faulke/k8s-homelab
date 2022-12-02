@@ -89,6 +89,11 @@ volumes:
     hostPath:
       path: /home/evan/plex
       type: DirectoryOrCreate
+  - name: media
+    mountPath: /media
+    nfs:
+      server: '192.168.40.142'
+      path: /mnt/sp1
 
 env:
   - name: VERSION
@@ -98,4 +103,4 @@ env:
   - name: PGID
     value: '1000'
   - name: PLEX_CLAIM
-    value: claim-xkEugxsLFb19J8tfc8ms
+    value: claim-fQhHxnrLhGQaKKyhL12i
