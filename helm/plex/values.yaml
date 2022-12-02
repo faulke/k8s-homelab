@@ -46,7 +46,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   hosts:
     - paths:
-        - path: /
+        - path: /plex
           pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
