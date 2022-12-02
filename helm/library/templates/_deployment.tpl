@@ -51,8 +51,10 @@ spec:
               - name: {{ .name }}
                 mountPath: {{ .mountPath }}
             {{- end }}
+          {{- with .Values.env }}
           env:
-            {{- toYaml .Values.env | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
