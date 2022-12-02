@@ -83,7 +83,12 @@ tolerations:
 
 affinity: {}
 
-volumes: []
+volumes:
+  - name: config
+    mountPath: /config
+    hostPath:
+      path: /home/evan/plex
+      type: DirectoryOrCreate
 
 env:
   - name: VERSION
