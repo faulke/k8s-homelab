@@ -94,8 +94,8 @@ env:
   - name: VERSION
     value: docker
   - name: PUID
-    value: 1000
+    value: '1000'
   - name: PGID
-    value: 1000
+    value: '1000'
   - name: PLEX_CLAIM
     value: claim-uJVM1JdK_Xxif-uw5yGT
