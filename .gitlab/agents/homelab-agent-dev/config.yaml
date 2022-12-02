@@ -1,11 +1,5 @@
 gitops:
   charts:
-  - release_name: plex-server
-    source:
-      project:
-        id: faulke/homelab
-        path: helm/plex
-    namespace: default
   - release_name: plex-nfs
     source:
       project:
