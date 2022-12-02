@@ -93,4 +93,4 @@ env:
   - name: PGID
     value: 1000
   - name: PLEX_CLAIM
-    value: claim-bdfuHpMsjT94u8Jcjsfr
+    value: "claim-bdfuHpMsjT94u8Jcjsfr"
