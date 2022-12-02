@@ -47,7 +47,7 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            {{- toYaml .Values.volumes | nindent 12 }}
+            {{- range .Values.volumes }}
               - name: {{ .name }}
                 mountPath: {{ .mountPath }}
             {{- end}}
