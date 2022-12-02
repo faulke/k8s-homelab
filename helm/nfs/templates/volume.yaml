@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.name }}
 spec:
   capacity:
-    storage: {{ .Values.capacity | 9620G}}
+    storage: {{ .Values.capacity | 9620G }}
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
