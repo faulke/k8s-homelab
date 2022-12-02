@@ -88,9 +88,9 @@ volumes: []
 env:
   - name: VERSION
     value: docker
-  - name: PUID
-    value: 1000
-  - name: PGID
-    value: 1000
+  # - name: PUID
+  #   value: 1000
+  # - name: PGID
+  #   value: 1000
   # - name: PLEX_CLAIM
   #   value: "claim-bdfuHpMsjT94u8Jcjsfr"
