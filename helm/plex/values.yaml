@@ -42,13 +42,11 @@ ingress:
   enabled: true
   className: "nginx"
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /plex$1$2
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
     # kubernetes.io/tls-acme: "true"
   hosts:
     - paths:
-        - path: /plex()(.*)
-          pathType: Prefix
-        - path: /(web)(.*)
+        - path: /plex(/|$)(.*)
           pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
