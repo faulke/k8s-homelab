@@ -45,7 +45,7 @@ ingress:
     # nginx.ingress.kubernetes.io/rewrite-target: /$2
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: sonarr.example.com
+    - host: sonarr.homelab.com
       paths:
         - path: /
           pathType: Prefix
