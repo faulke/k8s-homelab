@@ -90,10 +90,10 @@ volumes:
     hostPath:
       path: /home/evan/plex
       type: DirectoryOrCreate
-  # - name: media
-  #   mountPath: /media
-  #   persistentVolumeClaim:
-  #     claimName: nfs-pvc
+  - name: media
+    mountPath: /media
+    persistentVolumeClaim:
+      claimName: nfs-pvc
 
 env:
   - name: VERSION
