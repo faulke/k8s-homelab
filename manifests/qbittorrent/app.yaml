@@ -12,27 +12,14 @@ spec:
       PUID: 1000
       PGID: 1000
     ingress:
-      enabled: true
-      ingressClassName: "nginx"
-      hosts:
-      - host: torrents.homelab.com
-        paths:
-        - path: /
-          pathType: Prefix
-    persistence:
-      config:
-        enabled: false
-      media:
-        enabled: false
-        emptyDir: false
-        accessMode: ReadWriteOnce
-        storageClass: smb
-        size: 100Gi
-      downloads:
-        enabled: false
-        storageClass: smb
-        size: 100Gi
-        accessMode: ReadWriteOnce
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        hosts:
+        - host: torrents.homelab.com
+          paths:
+          - path: /
+            pathType: Prefix
     nodeSelector:
       dedicated: bitterroot
     tolerations:
