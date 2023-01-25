@@ -1,1 +1,1 @@
-{{ include "qbittorrent" . }}
+{{ include "qbittorrent.common" . }}
