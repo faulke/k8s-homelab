@@ -1,0 +1,42 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: qbittorrent
+spec:
+  chart: qbittorrent
+  repo: https://k8s-at-home.com/charts/
+  version: 13.5.2
+  valuesContent: |
+    env:
+      TZ: America/Boise
+      PUID: 1000
+      PGID: 1000
+    ingress:
+      enabled: true
+      ingressClassName: "nginx"
+      hosts:
+      - host: torrents.homelab.com
+        paths:
+        - path: /
+          pathType: Prefix
+    persistence:
+      config:
+        enabled: false
+      media:
+        enabled: false
+        emptyDir: false
+        accessMode: ReadWriteOnce
+        storageClass: smb
+        size: 100Gi
+      downloads:
+        enabled: false
+        storageClass: smb
+        size: 100Gi
+        accessMode: ReadWriteOnce
+    nodeSelector:
+      dedicated: bitterroot
+    tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "bitterroot"
+      effect: "NoSchedule"   
