@@ -105,4 +105,4 @@ env:
   - name: PGID
     value: '1000'
   - name: PLEX_CLAIM
-    value: claim-Doe_1LwWyrMVdB48Abos
+    value: claim-Xh2mq8ovau65xnMknTCx
