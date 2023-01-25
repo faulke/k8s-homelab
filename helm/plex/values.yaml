@@ -86,7 +86,6 @@ affinity: {}
 volumes:
   - name: config
     mountPath: /config
-    # update to PV and PVC
     persistentVolumeClaim:
       claimName: plex-config-pvc
   - name: media
