@@ -14,10 +14,6 @@ ports:
   - name: ui
     containerPort: 8989
 
-externalIps:
-  - 192.168.40.156
-  - 10.0.0.10
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -47,10 +43,11 @@ ingress:
   className: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
     # kubernetes.io/tls-acme: "true"
   hosts:
     - paths:
-        - path: /sonarr
+        - path: /sonarr(/|$)(.*)
           pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
