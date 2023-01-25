@@ -15,7 +15,7 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: dedicated
-          operator: in
+        - key: kubernetes.io/hostname
+          operator: In
           values:
-            - yellowstone
+          - yellowstone
