@@ -92,9 +92,8 @@ volumes:
       type: DirectoryOrCreate
   - name: media
     mountPath: /media
-    nfs:
-      server: '192.168.40.142'
-      path: /mnt/sp1/test
+    persistentVolumeClaim:
+      claimName: nfs-pvc
 
 env:
   - name: VERSION
