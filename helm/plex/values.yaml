@@ -14,6 +14,9 @@ ports:
   - name: ui
     containerPort: 32400
 
+externalIps:
+  - '192.168.40.155'
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -34,8 +37,8 @@ podSecurityContext: {}
 securityContext: {}
 
 service:
-  type: NodePort
-  port: 8080
+  type: ClusterIP
+  port: 80
   targetPort: ui
 
 ingress:
