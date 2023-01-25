@@ -25,8 +25,8 @@ variable vms {
     name         = string
     os_volume_id = string
     disk_size    = number
-    vcpu         = number
-    memory       = number
+    vcpu         = optional(number, 2)
+    memory       = optional(number, 2048)
     hostname     = string
     internal_ip  = string
     private_key  = string
@@ -36,5 +36,7 @@ variable vms {
     taints       = optional(map(any), {})
     labels       = optional(map(any), {})
     bridge       = optional(string, "br0")
+    disk_ids     = optional(list(string), [])
+    cloud_init   = optional(string, "default-init.tpl")
   }))
 }

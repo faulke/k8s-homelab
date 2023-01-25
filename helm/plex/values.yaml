@@ -42,11 +42,11 @@ ingress:
   enabled: true
   className: "nginx"
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    # nginx.ingress.kubernetes.io/rewrite-target: /$2
     # kubernetes.io/tls-acme: "true"
   hosts:
     - paths:
-        - path: /plex(/|$)(?!.*.css$|.*.js$)(.*)
+        - path: /
           pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
@@ -73,12 +73,12 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector:
-  dedicated: plex
+  dedicated: yellowstone
 
 tolerations:
   - key: "dedicated"
     operator: "Equal"
-    value: "plex"
+    value: "yellowstone"
     effect: "NoSchedule"
 
 affinity: {}
@@ -86,6 +86,7 @@ affinity: {}
 volumes:
   - name: config
     mountPath: /config
+    # update to PV and PVC
     hostPath:
       path: /home/evan/plex
       type: DirectoryOrCreate
@@ -93,7 +94,7 @@ volumes:
     mountPath: /media
     nfs:
       server: '192.168.40.142'
-      path: /mnt/sp1
+      path: /mnt/sp1/test
 
 env:
   - name: VERSION

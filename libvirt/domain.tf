@@ -9,7 +9,7 @@ resource "libvirt_volume" "this_vm_os" {
 
 data "template_file" "cloud_init" {
   for_each = local.vms_map
-  template = file("${path.module}/cloudinit.tpl")
+  template = file("${path.module}/templates/${each.value.cloud_init}")
 
   vars = {
     hostname = each.value.name
@@ -36,6 +36,13 @@ resource "libvirt_domain" "this" {
 
   disk {
     volume_id = libvirt_volume.this_vm_os[each.value.name].id
+  }
+
+  dynamic "disk" {
+    for_each = each.value.disk_ids
+    content {
+      volume_id = disk.value
+    }
   }
 
   graphics {
@@ -94,7 +101,7 @@ data "template_file" "gitlab_agent" {
 
   count = length(local.gitlab_agents)
 
-  template = file("${path.module}/gitlab-agent.tpl")
+  template = file("${path.module}/templates/gitlab-agent.tpl")
   vars = {
     agent_token = local.gitlab_agents[count.index].gitlab_agent
   }
