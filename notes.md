@@ -17,3 +17,11 @@ https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
 2. Sonarr
 3. Radarr
 4. Qbittorrent + Open vpn sidecar (k8s-@-home)
+
+# Main parent chart to deploy to different envs
+https://github.com/codefresh-io/helm-chart-examples/tree/master/chart-of-charts
+
+- Rapid deploy to dev cluster - gitlab agent
+- Release tag
+ - helm dep update in all subcharts
+ - helm install main parent chart to prod cluster
