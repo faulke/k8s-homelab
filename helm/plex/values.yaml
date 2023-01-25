@@ -34,8 +34,8 @@ podSecurityContext: {}
 securityContext: {}
 
 service:
-  type: ClusterIP
-  port: 80
+  type: NodePort
+  port: 8080
   targetPort: ui
 
 ingress:
@@ -47,7 +47,6 @@ ingress:
   hosts:
     - paths:
         - path: /
-          pathType: Exact
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
