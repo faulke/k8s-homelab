@@ -12,3 +12,9 @@ gitops:
         id: faulke/homelab
         path: helm/nfs
     namespace: default
+  - release_name: sonarr
+    source:
+      project:
+        id: faulke/homelab
+        path: helm/sonarr
+    namespace: default
