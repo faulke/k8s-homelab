@@ -26,7 +26,7 @@ variable bitterroot {
   type = object({
     internal_ip = string
     volume_size = optional(number, 15032385536)
-    config_volume_size = optional(number, 5368709120)
+    data_volume_size = optional(number, 5368709120)
   })
   description = "configuration for bitterroot node"
 }

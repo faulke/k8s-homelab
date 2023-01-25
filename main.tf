@@ -59,6 +59,13 @@ resource "libvirt_volume" "yellowstone" {
   pool     = libvirt_pool.main.name
 }
 
+# bitterroot node extra volume
+resource "libvirt_volume" "bitterroot" {
+  name     = "bitterroot-data.qcow2"
+  size     = var.bitterroot.data_volume_size
+  pool     = libvirt_pool.main.name
+}
+
 ### VMS
 
 # homelab vms
@@ -85,6 +92,14 @@ module "homelab_libvirt" {
       hostname     = "bitterroot-${var.env_name}"
       internal_ip  = var.bitterroot.internal_ip
       private_key  = local.private_key
+      disk_ids     = [libvirt_volume.bitterroot.id]
+      cloud_init   = "bitterroot-init.tpl"
+      taints       = {
+        "dedicated" = "bitterroot:NoSchedule"
+      }
+      labels       = {
+        "dedicated" = "bitterroot"
+      }
     },
     {
       name         = "homelab-worker-yellowstone-${var.env_name}"
