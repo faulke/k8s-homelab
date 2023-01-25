@@ -18,4 +18,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - yellowstone
+          - homelab-worker-yellowstone-dev
