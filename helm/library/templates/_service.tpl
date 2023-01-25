@@ -11,10 +11,6 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
-  {{- with .Values.externalIps }}
-  externalIps:
-    {{- toYaml . | nindent 4 }}
-  {{- end}}
   selector:
     {{- include "helpers.selectorLabels" . | nindent 4 }}
 {{- end }}
