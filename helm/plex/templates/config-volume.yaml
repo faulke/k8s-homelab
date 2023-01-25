@@ -16,6 +16,6 @@ spec:
       nodeSelectorTerms:
       - matchExpressions:
         - key: dedicated
-          operator: Equal
+          operator: in
           values:
             - yellowstone
