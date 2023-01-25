@@ -11,6 +11,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   mountOptions:
+    - nfsvers=2.1
   {{- with .Values.server }}
   nfs:
     path: {{ .path }}
