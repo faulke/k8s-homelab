@@ -87,9 +87,8 @@ volumes:
   - name: config
     mountPath: /config
     # update to PV and PVC
-    hostPath:
-      path: /home/evan/plex
-      type: DirectoryOrCreate
+    persistentVolumeClaim:
+      claimName: plex-config-pvc
   - name: media
     mountPath: /media
     persistentVolumeClaim:
