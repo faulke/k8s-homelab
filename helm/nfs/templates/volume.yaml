@@ -10,7 +10,6 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  mountOptions:
   {{- with .Values.server }}
   nfs:
     path: {{ .path }}
