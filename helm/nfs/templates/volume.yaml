@@ -1,17 +1,17 @@
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: {{ .Values.name }}
-spec:
-  storageClassName: nfs
-  capacity:
-    storage: {{ .Values.capacity }}
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  {{- with .Values.server }}
-  nfs:
-    path: {{ .path }}
-    server: {{ .address }}
-  {{- end }}
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: {{ .Values.name }}
+# spec:
+#   storageClassName: nfs
+#   capacity:
+#     storage: {{ .Values.capacity }}
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   persistentVolumeReclaimPolicy: Retain
+#   {{- with .Values.server }}
+#   nfs:
+#     path: {{ .path }}
+#     server: {{ .address }}
+#   {{- end }}
