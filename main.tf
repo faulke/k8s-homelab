@@ -109,13 +109,13 @@ module "homelab_libvirt" {
 ### CLUSTERS
 
 # homelab cluster
-# module "homelab_cluster" {
-#   depends_on = [module.homelab_libvirt]
-#   source     = "./k3s"
+module "homelab_cluster" {
+  depends_on = [module.homelab_libvirt]
+  source     = "./k3s"
 
-#   cluster_domain = "homelab.${var.env_name}"
-#   pods_cidr      = var.pods_cidr
-#   services_cidr  = var.services_cidr
-#   master_nodes   = module.homelab_libvirt.k8s_master_nodes
-#   agent_nodes    = module.homelab_libvirt.k8s_agent_nodes
-# }
+  cluster_domain = "homelab.${var.env_name}"
+  pods_cidr      = var.pods_cidr
+  services_cidr  = var.services_cidr
+  master_nodes   = module.homelab_libvirt.k8s_master_nodes
+  agent_nodes    = module.homelab_libvirt.k8s_agent_nodes
+}
