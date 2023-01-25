@@ -47,7 +47,7 @@ ingress:
   hosts:
     - paths:
         - path: /
-          pathType: Prefix
+          pathType: Exact
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
