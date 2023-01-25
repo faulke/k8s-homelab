@@ -14,6 +14,9 @@ ports:
   - name: ui
     containerPort: 8989
 
+externalIps:
+  - '192.168.40.156'
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
