@@ -1,0 +1,11 @@
+ingress:
+  main:
+    enabled: true
+    ingressClassName: "nginx"
+    hosts:
+      - host: torrents.homelab.com
+        paths:
+          - path: /
+            pathType: Prefix
+env:
+  TZ: America/Boise
