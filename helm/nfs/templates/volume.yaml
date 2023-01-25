@@ -3,6 +3,7 @@ kind: PersistentVolume
 metadata:
   name: {{ .Values.name }}
 spec:
+  storageClassName: nfs
   capacity:
     storage: {{ .Values.capacity }}
   volumeMode: Filesystem
