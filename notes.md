@@ -37,3 +37,8 @@ https://docs.gitlab.com/ee/user/packages/helm_repository/
 
 - How to deploy dev and prod clusters separately with unique values?
 - chart-of-charts approach? dev default values, prod overwrite values.
+
+- For dev: gitlab agent -> deploys on master
+- For prod: ci/cd -> update deps -> helm install using gitlab agent context
+https://docs.gitlab.com/ee/user/clusters/agent/ci_cd_workflow.html
+- how to avoid 

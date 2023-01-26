@@ -10,3 +10,12 @@ qbittorrent:
               pathType: Prefix
   env:
     TZ: America/Boise
+
+  nodeSelector:
+    dedicated: bitterroot
+
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "bitterroot"
+      effect: "NoSchedule"
