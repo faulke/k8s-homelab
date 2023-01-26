@@ -4,8 +4,6 @@ gitops:
     source:
       project:
         id: faulke/homelab
-        ref:
-          branch: feature/chart-of-charts
         path: helm
     namespace: default
   # manifest_projects:
