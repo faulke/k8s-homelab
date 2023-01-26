@@ -18,6 +18,12 @@ gitops:
         id: faulke/homelab
         path: helm/sonarr
     namespace: default
+  - release_name: nginx
+    source:
+      project:
+        id: faulke/homelab
+        path: helm/nginx
+    namespace: default
   manifest_projects:
   - id: faulke/homelab
     # ref: # either `branch`, `tag` or `commit` can be specified
