@@ -18,10 +18,22 @@ https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
 3. Radarr
 4. Qbittorrent + Open vpn sidecar (k8s-@-home)
 
-# Main parent chart to deploy to different envs
-https://github.com/codefresh-io/helm-chart-examples/tree/master/chart-of-charts
+# Manifests w/ helm and k3s
+https://docs.k3s.io/helm
 
-- Rapid deploy to dev cluster - gitlab agent
-- Release tag
- - helm dep update in all subcharts
- - helm install main parent chart to prod cluster
+# Gitlab gitops for Kubernetes
+https://docs.gitlab.com/ee/user/clusters/agent/gitops.html
+
+# Helm charts in gitlab package registry
+https://docs.gitlab.com/ee/user/packages/helm_repository/
+- this won't work for Helm CRD, because it's a private repo
+
+- Create own common app chart (deployment, service, ingress) like old library
+- Use k8s-at-home library chart
+- Create nfs pv chart
+
+- Create new gitlab agent token for prod
+- Use tag or prod branch in agent config
+
+- How to deploy dev and prod clusters separately with unique values?
+- chart-of-charts approach? dev default values, prod overwrite values.

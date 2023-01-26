@@ -1,5 +1,5 @@
 name: nfs
 capacity: 9620Gi
 server:
-  path: /mnt/sp1/data
+  path: /mnt/sp1/test/data
   address: 192.168.40.142
