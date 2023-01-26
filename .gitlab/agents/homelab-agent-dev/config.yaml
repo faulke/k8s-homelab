@@ -1,28 +1,10 @@
 gitops:
   charts:
-  - release_name: plex-server
+  - release_name: homelab-dev
     source:
       project:
         id: faulke/homelab
-        path: helm/plex
-    namespace: default
-  - release_name: storage
-    source:
-      project:
-        id: faulke/homelab
-        path: helm/storage
-    namespace: default
-  - release_name: sonarr
-    source:
-      project:
-        id: faulke/homelab
-        path: helm/sonarr
-    namespace: default
-  - release_name: qbittorrent
-    source:
-      project:
-        id: faulke/homelab
-        path: helm/qbittorrent
+        path: helm
     namespace: default
   # manifest_projects:
   # - id: faulke/homelab
