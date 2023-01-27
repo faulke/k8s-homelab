@@ -26,12 +26,14 @@ qbittorrent:
       enabled: true
       type: emptyDir
       mountPath: /config
+      size: 50mi
 
     # This should be enabled so that both the qBittorrent and OpenVPN container have access to a shared volume mounted to /shared.
     # It will be used to communicate between the two containers.
     shared:
       enabled: true
       type: emptyDir
+      size: 50Mi
       mountPath: /shared
 
   addons:
