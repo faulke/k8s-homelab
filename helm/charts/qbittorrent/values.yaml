@@ -38,7 +38,7 @@ qbittorrent:
 
   addons:
     vpn:
-      enabled: true
+      enabled: false
       # This Should be set to `openvpn`. This will set the add-on to use the default settings for OpenVPN based connections.
       type: openvpn
 
@@ -48,9 +48,9 @@ qbittorrent:
 
       # If the podSecurityContext is set to run as a different user, make sure to run the OpenVPN container as root. 
       # This is required for it to be able to read certain configuration files. 
-      # securityContext:
-      #   runAsGroup: 0
-      #   runAsUser: 0
+      securityContext:
+        runAsGroup: 0
+        runAsUser: 0
 
       env:
         # Set this environment variable to 'on' to make sure all traffic gets routed through the VPN container.
