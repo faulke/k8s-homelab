@@ -36,7 +36,7 @@ qbittorrent:
 
   addons:
     vpn:
-      enabled: true
+      enabled: false
       # This Should be set to `openvpn`. This will set the add-on to use the default settings for OpenVPN based connections.
       type: openvpn
 
