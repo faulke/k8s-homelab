@@ -38,7 +38,7 @@ qbittorrent:
 
   addons:
     vpn:
-      enabled: false
+      enabled: true
       # This Should be set to `openvpn`. This will set the add-on to use the default settings for OpenVPN based connections.
       type: openvpn
 
@@ -72,10 +72,8 @@ qbittorrent:
       scripts:
         up: |-
           #!/bin/bash
-          /etc/openvpn/up.sh
           echo "connected" > /shared/vpnstatus
 
         down: |-
           #!/bin/bash
-          /etc/openvpn/down.sh
           echo "disconnected" > /shared/vpnstatus
