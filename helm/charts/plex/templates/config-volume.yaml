@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storageß
+  storageClassName: local-storage
   local:
     path: /config
   nodeAffinity:
