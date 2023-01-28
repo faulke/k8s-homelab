@@ -40,6 +40,10 @@ qbittorrent:
         # This gets read by the Helm chart. The default OpenVPN image reads this and uses it to connect to the VPN provider.
         authSecret: tor-vpn-auth
 
+      securityContext:
+        runAsGroup: 0
+        runAsUser: 0
+
       # If the podSecurityContext is set to run as a different user, make sure to run the OpenVPN container as root. 
       # This is required for it to be able to read certain configuration files. 
 
@@ -48,6 +52,7 @@ qbittorrent:
         # Make sure to check the other environment variables for the OpenVPN image to see how you can exclude certain
         # traffic from these firewall rules.
         TZ: America/Boise
+        FIREWALL: 'on'
 
       # The .ovpn file provided by your VPN provider goes here.
       #
@@ -61,3 +66,13 @@ qbittorrent:
       # The default scripts will write a string to represent the current connection state to a file.
       # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
 
+      scripts:
+        up: |-
+          #!/bin/bash
+          /etc/openvpn/up.sh
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/bash
+          /etc/openvpn/down.sh
+          echo "disconnected" > /shared/vpnstatus
