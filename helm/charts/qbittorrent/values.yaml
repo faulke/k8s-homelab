@@ -1,4 +1,6 @@
 qbittorrent:
+  settings:
+    automaticPortSetup: true
   ingress:
     main:
       enabled: true
