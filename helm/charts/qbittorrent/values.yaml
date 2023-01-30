@@ -59,8 +59,7 @@ qbittorrent:
         # traffic from these firewall rules.
         TZ: America/Boise
         FIREWALL: 'on'
-        ROUTE_1: '192.168.40.0/24'
-        ROUTE_2: '10.0.0.0/24'
+        ROUTE: '192.168.40.0/24'
 
       # The .ovpn file provided by your VPN provider goes here.
       #
