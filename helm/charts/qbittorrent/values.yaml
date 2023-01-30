@@ -30,6 +30,12 @@ qbittorrent:
     shared:
       enabled: true
 
+    downloads:
+      enabled: true
+      existingClaim: nfs-pvc
+      storageClass: nfs
+      accessMode: ReadWriteMany
+
   addons:
     vpn:
       enabled: true
