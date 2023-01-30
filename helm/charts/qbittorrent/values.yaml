@@ -1,6 +1,6 @@
 qbittorrent:
-  settings:
-    automaticPortSetup: true
+  image:
+    tag: v4.5.0
   ingress:
     main:
       enabled: true
