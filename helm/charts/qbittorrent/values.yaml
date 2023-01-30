@@ -59,6 +59,7 @@ qbittorrent:
         # traffic from these firewall rules.
         TZ: America/Boise
         FIREWALL: 'on'
+        DNS: '192.168.40.134'
 
       # The .ovpn file provided by your VPN provider goes here.
       #
