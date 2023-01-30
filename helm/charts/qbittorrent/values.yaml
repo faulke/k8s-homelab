@@ -1,6 +1,6 @@
 qbittorrent:
   image:
-    tag: v4.5.0
+    tag: latest
   ingress:
     main:
       enabled: true
