@@ -71,7 +71,11 @@ data "http" "nginx_ingress" {
   url = "https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.1/deploy/static/provider/cloud/deploy.yaml"
 }
 
-resource "null_resource" "nginx_ingress" {
+data "template_file" "sealed_secrets" {
+  template = file("${path.module}/templates/secrets.tpl")
+}
+
+resource "null_resource" "master_deps" {
   depends_on = [libvirt_domain.this]
 
   for_each   = { for k in local.vms_map : k.internal_ip => k if k.k8s_master == true }
@@ -88,10 +92,24 @@ resource "null_resource" "nginx_ingress" {
     destination = "/tmp/ingress.yaml"
   }
 
+  provisioner "file" {
+    content     = data.template_file.sealed_secrets.rendered
+    destination = "/tmp/secrets.yaml"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "sudo mkdir -p /var/lib/rancher/k3s/server/manifests",
-      "sudo mv /tmp/ingress.yaml /var/lib/rancher/k3s/server/manifests"
+      "sudo mv /tmp/ingress.yaml /var/lib/rancher/k3s/server/manifests",
+      "sudo mv /tmp/secrets.yaml /var/lib/rancher/k3s/server/manifests"
+    ]
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.19.4/kubeseal-0.19.4-linux-amd64.tar.gz",
+      "tar -xvzf kubeseal-0.19.4-linux-amd64.tar.gz kubeseal",
+      "sudo install -m 755 kubeseal /usr/local/bin/kubeseal"
     ]
   }
 }
