@@ -58,7 +58,7 @@ qbittorrent:
         # Make sure to check the other environment variables for the OpenVPN image to see how you can exclude certain
         # traffic from these firewall rules.
         TZ: America/Boise
-        FIREWALL: 'on'
+        # FIREWALL: 'on'
         ROUTE: '10.0.0.0/24'
 
       # The .ovpn file provided by your VPN provider goes here.
