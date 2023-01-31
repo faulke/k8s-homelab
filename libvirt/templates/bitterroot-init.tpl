@@ -8,5 +8,5 @@ fs_setup:
 mounts:
   - [ vdb, /data, "auto", "rw,user,exec,nofail", "0", "0" ]
 runcmd:
-  - [ mkdir, -p, /data/sonarr ]
+  - [ mkdir, -p, /data/sonarr, /data/radarr ]
   - [ chmod, -R, 777, /data ]
