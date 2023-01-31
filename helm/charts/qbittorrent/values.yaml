@@ -39,6 +39,10 @@ qbittorrent:
       accessMode: ReadWriteMany
       mountPath: /data
 
+  securityContext:
+    runAsGroup: 1000
+    runAsUser: 1000
+
   addons:
     vpn:
       enabled: true
