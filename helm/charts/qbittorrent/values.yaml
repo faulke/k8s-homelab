@@ -13,6 +13,7 @@ qbittorrent:
   env:
     TZ: America/Boise
     WAIT_FOR_VPN: "true"
+    UMASK: 0000
 
   nodeSelector:
     dedicated: bitterroot
@@ -38,10 +39,6 @@ qbittorrent:
       storageClass: nfs
       accessMode: ReadWriteMany
       mountPath: /data
-
-  securityContext:
-    runAsGroup: 1000
-    runAsUser: 1000
 
   addons:
     vpn:
