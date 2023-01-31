@@ -37,6 +37,7 @@ qbittorrent:
       existingClaim: nfs-pvc
       storageClass: nfs
       accessMode: ReadWriteMany
+      mountPath: /data
 
   addons:
     vpn:
