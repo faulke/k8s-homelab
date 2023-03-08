@@ -44,3 +44,7 @@ https://docs.gitlab.com/ee/user/clusters/agent/ci_cd_workflow.html
 - how to avoid checking 
 
 - secrets: https://github.com/bitnami-labs/sealed-secrets#usage
+
+# Building VM host
+- Add two nics w/ static IPs
+- Create VM network bridge
