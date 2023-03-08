@@ -41,4 +41,6 @@ https://docs.gitlab.com/ee/user/packages/helm_repository/
 - For dev: gitlab agent -> deploys on master
 - For prod: ci/cd -> update deps -> helm install using gitlab agent context
 https://docs.gitlab.com/ee/user/clusters/agent/ci_cd_workflow.html
-- how to avoid 
+- how to avoid checking 
+
+- secrets: https://github.com/bitnami-labs/sealed-secrets#usage
