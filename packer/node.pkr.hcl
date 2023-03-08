@@ -10,8 +10,8 @@ packer {
 }
 
 source "qemu" "example" {
-  iso_url                = "https://releases.ubuntu.com/jammy/ubuntu-22.04.1-live-server-amd64.iso"
-  iso_checksum           = "sha256:10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
+  iso_url                = "https://releases.ubuntu.com/jammy/ubuntu-22.04.2-live-server-amd64.iso"
+  iso_checksum           = "sha256:5e38b55d57d94ff029719342357325ed3bda38fa80054f9330dc789cd2d43931"
   output_directory       = "build"
   shutdown_command       = "echo 'packer' | sudo -S shutdown -P now"
   disk_size              = "4096M"
