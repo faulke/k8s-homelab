@@ -44,7 +44,16 @@ https://docs.gitlab.com/ee/user/clusters/agent/ci_cd_workflow.html
 - how to avoid checking 
 
 - secrets: https://github.com/bitnami-labs/sealed-secrets#usage
+  - fetch cert: sudo kubeseal --kubeconfig=/etc/rancher/k3s/k3s.yaml --fetch-cert >secrets.pub
+  - base64 encode secret
+  - echo -n bar | sudo kubectl create secret generic mysecret --dry-run=client --from-file=foo=/dev/stdin -o yaml >mysecret.yaml
+  - add base64 string in yaml data
+  - install kubeseal on teton
+  - kubeseal --cert secrets.pub <secret.yaml >sealedsecret.yaml
+  - copy encrypted data string to secrets chart values.yaml
 
 # Building VM host
-- Add two nics w/ static IPs
-- Create VM network bridge
+- Create two network bridges with static IPs in netplan
+- Create VM network bridges
+  - br0
+  - br1

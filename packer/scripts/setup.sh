@@ -11,3 +11,6 @@ chown -R ubuntu ~/.ssh
 # remove cloud cfg
 rm /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg
 rm /etc/cloud/cloud.cfg.d/99-installer.cfg
+
+# install utils
+apt-get install -y nfs-common

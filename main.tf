@@ -31,39 +31,47 @@ provider "libvirt" {
   alias = "main"
 }
 
-# create network
+# create vm network
 resource "libvirt_network" "k8s_local" {
   name      = local.k8s_network_name
   addresses = [var.network_cidr]
   autostart = true
 }
 
-# create image pool
-resource "libvirt_pool" "main" {
-  name = var.pool.name
-  type = "dir"
-  path = var.pool.path
+# create two bridge networks
+resource "libvirt_network" "main" {
+  name      = var.main_net_bridge
+  mode      = "bridge"
+  bridge    = var.main_net_bridge
+  autostart = true
+}
+
+resource "libvirt_network" "dedicated" {
+  name      = var.dedicated_net_bridge
+  mode      = "bridge"
+  bridge    = var.dedicated_net_bridge
+  autostart = true
 }
 
 # create main os volume
 resource "libvirt_volume" "ubuntu" {
   name     = "ubuntu.qcow2"
   source   = var.base_image_source
-  pool     = libvirt_pool.main.name
+  pool     = var.pool.name
 }
 
 # yellowstone node config volume
 resource "libvirt_volume" "yellowstone" {
   name     = "yellowstone_config.qcow2"
   size     = var.yellowstone.config_volume_size
-  pool     = libvirt_pool.main.name
+  pool     = var.pool.name
 }
 
 # bitterroot node extra volume
 resource "libvirt_volume" "bitterroot" {
   name     = "bitterroot-data.qcow2"
   size     = var.bitterroot.data_volume_size
-  pool     = libvirt_pool.main.name
+  pool     = var.pool.name
 }
 
 ### VMS
@@ -72,7 +80,7 @@ resource "libvirt_volume" "bitterroot" {
 module "homelab_libvirt" {
   source     = "./libvirt"
   network_id = libvirt_network.k8s_local.id
-  pool_name  = libvirt_pool.main.name
+  pool_name  = var.pool.name
 
   vms = [
     {
@@ -108,7 +116,7 @@ module "homelab_libvirt" {
       hostname     = "yellowstone-${var.env_name}"
       internal_ip  = var.yellowstone.internal_ip
       private_key  = local.private_key
-      bridge       = "br1" # dedicated nic on host
+      bridge       = libvirt_network.dedicated.name # dedicated nic on host
       disk_ids     = [libvirt_volume.yellowstone.id] # additional disks to mount
       cloud_init   = "yellowstone-init.tpl"
       taints       = {
@@ -121,7 +129,7 @@ module "homelab_libvirt" {
   ]
 }
 
-### CLUSTERS
+# ### CLUSTERS
 
 # homelab cluster
 module "homelab_cluster" {

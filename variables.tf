@@ -14,6 +14,16 @@ variable network_cidr {
   description = "cidr block for libvirt network"
 }
 
+variable main_net_bridge {
+  type        = string
+  description = "name of host bridge for most nodes"
+}
+
+variable dedicated_net_bridge {
+  type        = string
+  description = "name of host bridge for dedicated nodes"
+}
+
 variable master {
   type = object({
     internal_ip = string
