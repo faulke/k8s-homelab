@@ -39,9 +39,7 @@ https://docs.gitlab.com/ee/user/packages/helm_repository/
 - chart-of-charts approach? dev default values, prod overwrite values.
 
 - For dev: gitlab agent -> deploys on master
-- For prod: ci/cd -> update deps -> helm install using gitlab agent context
-https://docs.gitlab.com/ee/user/clusters/agent/ci_cd_workflow.html
-- how to avoid checking 
+- For prod: custom values in gitlab agent file - https://docs.gitlab.com/ee/user/clusters/agent/gitops/helm.html#custom-values
 
 - secrets: https://github.com/bitnami-labs/sealed-secrets#usage
   - fetch cert: sudo kubeseal --kubeconfig=/etc/rancher/k3s/k3s.yaml --fetch-cert >secrets.pub
@@ -57,3 +55,33 @@ https://docs.gitlab.com/ee/user/clusters/agent/ci_cd_workflow.html
 - Create VM network bridges
   - br0
   - br1
+
+# manual configuration
+- virt-manager
+  - set Display to VNC Server
+- pihole
+  - custom dns entries for each service, pointed at master node ip address
+    - e.g., plex.homelab.com > 192.168.40.195
+- qbittorrent
+  - downloads = /data/torrents/complete & /data/torrents/incomplete
+  - make sure Advanced > Network Interface = tun0
+  - set seed limit to 30 min or so
+  - set make upload speed and connections
+  - admin:adminadmin is default
+  - to check vpn status:
+    - get shell in container: sudo kubectl exec --stdin --tty {pod name, e.g., homelab-dev-qbittorrent} /bin/bash
+    - view connected status: cat /shared/vpnstatus   = connected/disconnected
+- radarr & sonarr
+  - add qbittorrent client
+    - use homelab-dev-qbittorrent for host
+    - port 8080
+    - admin:adminadmin is default
+  - add indexers from jackett.homelab.com
+- plex
+  - need to access from localhost to setup server
+    - from optiplex: ssh -i ~/Downloads/tf-packer -L 8888:10.43.244.191:80 ubuntu@192.168.40.190
+    - go to: 127.0.0.1:8888/web
+    - currently "not authorized"
+    - get into container and follow these instructions, then restart: https://support.plex.tv/articles/204281528-why-am-i-locked-out-of-server-settings-and-how-do-i-get-in/
+  - last resort is yellowstone-worker is desktop version of ubuntu, use virt-manager display
+  - 
