@@ -82,6 +82,5 @@ https://docs.gitlab.com/ee/user/packages/helm_repository/
     - from optiplex: ssh -i ~/Downloads/tf-packer -L 8888:10.43.244.191:80 ubuntu@192.168.40.190
     - go to: 127.0.0.1:8888/web
     - currently "not authorized"
-    - get into container and follow these instructions, then restart: https://support.plex.tv/articles/204281528-why-am-i-locked-out-of-server-settings-and-how-do-i-get-in/
   - last resort is yellowstone-worker is desktop version of ubuntu, use virt-manager display
   - 
