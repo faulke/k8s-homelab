@@ -4,8 +4,8 @@ gitops:
     source:
       project:
         id: faulke/homelab
-          ref:
-            branch: fix-plex
+          # ref:
+          #   branch: fix-plex
         path: helm
     namespace: default
   # manifest_projects:
