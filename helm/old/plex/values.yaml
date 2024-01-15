@@ -92,8 +92,8 @@ volumes:
     mountPath: /config
     persistentVolumeClaim:
       claimName: plex-config-pvc
-  - name: media
-    mountPath: /media
+  - name: data
+    mountPath: /data
     persistentVolumeClaim:
       claimName: nfs-pvc
 
