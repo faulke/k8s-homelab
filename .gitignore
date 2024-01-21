@@ -7,3 +7,4 @@ notes.md
 *.auto.tfvars
 sealedsecret.yaml
 secret.yaml
+kube_config

@@ -67,14 +67,6 @@ resource "libvirt_domain" "this" {
   }
 }
 
-data "http" "nginx_ingress" {
-  url = "https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.1/deploy/static/provider/cloud/deploy.yaml"
-}
-
-data "template_file" "sealed_secrets" {
-  template = file("${path.module}/templates/secrets.tpl")
-}
-
 resource "null_resource" "master_deps" {
   depends_on = [libvirt_domain.this]
 
@@ -87,65 +79,11 @@ resource "null_resource" "master_deps" {
     timeout     = "60s"
   }
 
-  provisioner "file" {
-    content     = data.http.nginx_ingress.response_body
-    destination = "/tmp/ingress.yaml"
-  }
-
-  provisioner "file" {
-    content     = data.template_file.sealed_secrets.rendered
-    destination = "/tmp/secrets.yaml"
-  }
-
   provisioner "remote-exec" {
     inline = [
-      "sudo mkdir -p /var/lib/rancher/k3s/server/manifests",
-      "sudo mv /tmp/ingress.yaml /var/lib/rancher/k3s/server/manifests",
-      "sudo mv /tmp/secrets.yaml /var/lib/rancher/k3s/server/manifests"
-    ]
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.19.4/kubeseal-0.19.4-linux-amd64.tar.gz",
-      "tar -xvzf kubeseal-0.19.4-linux-amd64.tar.gz kubeseal",
+      "wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.25.0/kubeseal-0.25.0-linux-amd64.tar.gz",
+      "tar -xvzf kubeseal-0.25.0-linux-amd64.tar.gz kubeseal",
       "sudo install -m 755 kubeseal /usr/local/bin/kubeseal"
-    ]
-  }
-}
-
-data "template_file" "gitlab_agent" {
-  depends_on = [libvirt_domain.this]
-
-  count = length(local.gitlab_agents)
-
-  template = file("${path.module}/templates/gitlab-agent.tpl")
-  vars = {
-    agent_token = local.gitlab_agents[count.index].gitlab_agent
-  }
-}
-
-resource "null_resource" "gitlab_agent" {
-  depends_on = [libvirt_domain.this]
-
-  count   = length(local.gitlab_agents)
-
-  connection {
-    host        = local.gitlab_agents[count.index].internal_ip
-    user        = "ubuntu"
-    private_key = local.gitlab_agents[count.index].private_key
-    timeout     = "60s"
-  }
-
-  provisioner "file" {
-    content     = data.template_file.gitlab_agent[count.index].rendered
-    destination = "/tmp/gitlab-agent.yaml"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo mkdir -p /var/lib/rancher/k3s/server/manifests",
-      "sudo mv /tmp/gitlab-agent.yaml /var/lib/rancher/k3s/server/manifests"
     ]
   }
 }

@@ -1,11 +1,11 @@
-variable access_token {
+variable group {
   type        = string
-  description = "gitlab personal access token"
+  description = "gitlab group for homelab"
 }
 
-variable repo_path {
+variable project {
   type        = string
-  description = "gitlab repo path"
+  description = "gitlab repo for homelab"
 }
 
 variable env_name {

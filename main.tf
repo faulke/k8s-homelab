@@ -2,25 +2,29 @@ terraform {
   required_providers {
     libvirt = {
       source  = "dmacvicar/libvirt"
-      version = "~> 0.6.14"
+      version = "~> 0.7.6"
     }
     gitlab = {
       source  = "gitlabhq/gitlab"
-      version = "~> 3.18.0"
+      version = ">=16.8.0"
+    }
+    flux = {
+      source = "fluxcd/flux"
+      version = "1.2.2"
     }
   }
 }
 
 ### GITLAB AGENT RESOURCES - MUST APPLY FIRST
 provider "gitlab" {
-  token = var.gitlab_access_token
+  token = var.gitlab_token
 }
 
 module "gitlab" {
   source = "./gitlab"
 
-  access_token = var.gitlab_access_token
-  repo_path    = var.gitlab_repo_path
+  group        = var.gitlab_group
+  project      = var.gitlab_project
   env_name     = var.env_name
 }
 
@@ -91,7 +95,6 @@ module "homelab_libvirt" {
       internal_ip  = var.master.internal_ip
       private_key  = local.private_key
       k8s_master   = true
-      gitlab_agent = module.gitlab.agent_token
     },
     {
       name         = "homelab-worker-bitterroot-${var.env_name}"
@@ -129,7 +132,7 @@ module "homelab_libvirt" {
   ]
 }
 
-# ### CLUSTERS
+### CLUSTERS
 
 # homelab cluster
 module "homelab_cluster" {
@@ -142,3 +145,32 @@ module "homelab_cluster" {
   master_nodes   = module.homelab_libvirt.k8s_master_nodes
   agent_nodes    = module.homelab_libvirt.k8s_agent_nodes
 }
+
+
+resource "local_file" "kube_config" {
+  content  = module.homelab_cluster.kube_config
+  filename = "${path.module}/kube_config"
+}
+
+
+### FLUX
+provider "flux" {
+  kubernetes = {
+    config_path = local_file.kube_config.filename
+  }
+  git = {
+    url = "ssh://git@gitlab.com/${module.gitlab.project_path}.git"
+    ssh = {
+      username    = "git"
+      private_key = module.gitlab.private_key_pem
+    }
+  }
+}
+
+resource "flux_bootstrap_git" "this" {
+  depends_on = [module.gitlab.deploy_key]
+
+  path           = "clusters/${var.env_name}"
+  cluster_domain = module.homelab_cluster.cluster_domain
+}
+

@@ -73,13 +73,18 @@ variable pool {
   description = "config for libvirt storage pool"
 }
 
-variable gitlab_access_token {
+variable gitlab_token {
   type        = string
   description = "gitlab token for access to homelab repo"
   sensitive   = true
 }
 
-variable gitlab_repo_path {
+variable gitlab_group {
   type        = string
-  description = "gitlab repo path with agent"
+  description = "gitlab group path for homelab"
+}
+
+variable gitlab_project {
+  type        = string
+  description = "gitlab project path for homelab"
 }

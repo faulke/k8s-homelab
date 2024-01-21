@@ -79,8 +79,13 @@ https://docs.gitlab.com/ee/user/packages/helm_repository/
   - add indexers from jackett.homelab.com
 - plex
   - need to access from localhost to setup server
-    - from optiplex: ssh -i ~/Downloads/tf-packer -L 8888:10.43.244.191:80 ubuntu@192.168.40.190
+    - from optiplex/macbook: ssh -i ~/Downloads/tf-packer -L 8888:<plex_pod_ip>:32400 ubuntu@<yellowstone_node_ip_192>
     - go to: 127.0.0.1:8888/web
-    - currently "not authorized"
-  - last resort is yellowstone-worker is desktop version of ubuntu, use virt-manager display
-  - 
+    - sign in
+    - add libraries
+    - settings
+      - network
+        - custom server urls: http://plex.homelab.com
+        - allowed networks: 192.168.40.1/24
+    - client settings:
+      - allow insecure connections

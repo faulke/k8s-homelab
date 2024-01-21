@@ -1,7 +1,8 @@
 module "k3s" {
   source         = "xunleii/k3s/module"
+  version        = "3.4.0"
   use_sudo       = true
-  k3s_version    = "v1.25.3+k3s1"
+  k3s_version    = "v1.28.5+k3s1"
   cluster_domain = var.cluster_domain
   managed_fields = ["label", "taint"]
 
