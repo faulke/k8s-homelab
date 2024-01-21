@@ -89,3 +89,15 @@ https://docs.gitlab.com/ee/user/packages/helm_repository/
         - allowed networks: 192.168.40.1/24
     - client settings:
       - allow insecure connections
+
+# helm
+- helm-charts repo
+- get dependencies
+  - cd charts/<chart>
+  - helm dependency update
+- package
+  - cd charts
+  - helm package <chart_name>
+- push
+  - cd charts
+  - helm push <tar_file> homelab_dev
